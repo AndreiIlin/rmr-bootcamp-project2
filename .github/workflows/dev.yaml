@@ -16,4 +16,4 @@ jobs:
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           usedocker: true
           env:
-            NODE_ENV: .env.development
+            NODE_ENV: development
