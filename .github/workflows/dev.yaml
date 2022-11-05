@@ -15,3 +15,7 @@ jobs:
           heroku_app_name: bootcamp-team2-dev #Must be unique in Heroku
           heroku_email: ${{secrets.HEROKU_EMAIL}}
           usedocker: true
+          docker_build_args: |
+            NODE_ENV
+        env:
+          NODE_ENV: development
