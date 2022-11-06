@@ -30,6 +30,7 @@ import { AdminProfessionsScreen } from '@screens/admin/AdminProfessionsScreen';
 import { AdminProfessionsNewScreen } from '@screens/admin/AdminProfessionsNewScreen';
 import { NotFound } from '@screens/NotFound';
 import { ConfirmPage } from '@screens/ConfirmPage';
+import { AboutUs } from '@screens/AboutUs';
 
 export const Routing = () => {
   return (
@@ -38,6 +39,7 @@ export const Routing = () => {
         <Route path={'/'} element={<MainLayout />}>
           <Route index element={<MainScreen />} />
           <Route path={'courses'} element={<CoursesScreen />} />
+          <Route path={'about-us'} element={<AboutUs />} />
           <Route path={'courses/:id'} element={<CourseScreen />} />
           <Route path={'/professions'} element={<ProfessionsScreen />} />
           <Route path={'professions/:id'} element={<ProfessionScreen />} />
