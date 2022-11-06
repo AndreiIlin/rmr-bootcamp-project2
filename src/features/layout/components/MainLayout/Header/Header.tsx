@@ -31,6 +31,7 @@ type NavLink = {
 const navLinks: NavLink[] = [
   { title: 'Профессии', path: '/professions', variant: 'text' },
   { title: 'Курсы', path: '/courses', variant: 'text' },
+  { title: 'О нас', path: '/about-us', variant: 'text' },
   { title: 'Пройти тест', path: '/survey', variant: 'contained' },
 ];
 
