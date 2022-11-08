@@ -6,7 +6,7 @@ import { FC, PropsWithChildren } from 'react';
 export const AboutUsPage: FC<PropsWithChildren> = () => {
   const ImgWrapper = styled('div')(() => ({
     width: '100%',
-    height: '400px',
+    height: '300px',
     display: 'flex',
     alignItems: 'start',
     justifyContent: 'start',
