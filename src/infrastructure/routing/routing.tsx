@@ -1,36 +1,37 @@
+import { ProtectedRoute } from '@features/auth';
 import { MainLayout } from '@features/layout';
 import { AdminLayout } from '@features/layout/components/AdminLayout';
 import { UserLayout } from '@features/layout/components/UserLayout';
 import { SurveyGuard } from '@features/survey/components/SurveyGuard';
-import { AdminProviderEditScreen } from '@screens/admin/AdminProviderEditScreen';
-import { AdminProviderNewScreen } from '@screens/admin/AdminProviderNewScreen';
-import { AdminProvidersScreen } from '@screens/admin/AdminProvidersScreen';
+import { AboutUs } from '@screens/AboutUs';
+import { AdminAccountsManagement } from '@screens/admin/AdminAccountsManagement';
 import { AdminCoursesEditScreen } from '@screens/admin/AdminCoursesEditScreen';
 import { AdminCoursesNewScreen } from '@screens/admin/AdminCoursesNewScreen';
 import { AdminCoursesScreen } from '@screens/admin/AdminCoursesScreen';
+import { AdminProfessionsEditScreen } from '@screens/admin/AdminProfessionsEditScreen';
+import { AdminProfessionsNewScreen } from '@screens/admin/AdminProfessionsNewScreen';
+import { AdminProfessionsScreen } from '@screens/admin/AdminProfessionsScreen';
+import { AdminProviderEditScreen } from '@screens/admin/AdminProviderEditScreen';
+import { AdminProviderNewScreen } from '@screens/admin/AdminProviderNewScreen';
+import { AdminProvidersScreen } from '@screens/admin/AdminProvidersScreen';
+import { ConfirmPage } from '@screens/ConfirmPage';
 import { CourseScreen } from '@screens/CourseScreen';
 import { CoursesScreen } from '@screens/CoursesScreen';
+import {
+  LoginScreen,
+  MainScreen,
+  ProfessionsScreen,
+  RegistrationScreen,
+} from '@screens/index';
+import { NotFound } from '@screens/NotFound';
 import { PageScreen } from '@screens/PageScreen';
+import { ProfessionScreen } from '@screens/ProfessionScreen';
 import { SurveyFinishScreen } from '@screens/SurveyFinishScreen';
 import { SurveyScreen } from '@screens/SurveyScreen';
 import { SurveyStepScreen } from '@screens/SurveyStepScreen';
 import { UserAccountScreen } from '@screens/UserAccountScreen';
 import { UserRecommendationsScreen } from '@screens/UserRecommendationsScreen';
 import { Route, Routes } from 'react-router-dom';
-import { CurrentUserRoles, ProtectedRoute } from '@features/auth';
-import {
-  MainScreen,
-  LoginScreen,
-  RegistrationScreen,
-  ProfessionsScreen,
-} from '@screens/index';
-import { ProfessionScreen } from '@screens/ProfessionScreen';
-import { AdminProfessionsEditScreen } from '@screens/admin/AdminProfessionsEditScreen';
-import { AdminProfessionsScreen } from '@screens/admin/AdminProfessionsScreen';
-import { AdminProfessionsNewScreen } from '@screens/admin/AdminProfessionsNewScreen';
-import { NotFound } from '@screens/NotFound';
-import { ConfirmPage } from '@screens/ConfirmPage';
-import { AboutUs } from '@screens/AboutUs';
 
 export const Routing = () => {
   return (
@@ -74,7 +75,7 @@ export const Routing = () => {
           <Route
             path={'admin/*'}
             element={
-              <ProtectedRoute role={CurrentUserRoles.ROLE_MODERATOR}>
+              <ProtectedRoute restriction="notForUsers">
                 <AdminLayout />
               </ProtectedRoute>
             }
@@ -93,13 +94,21 @@ export const Routing = () => {
             <Route path={'providers'} element={<AdminProvidersScreen />} />
             <Route path={'providers/:id/edit'} element={<AdminProviderEditScreen />} />
             <Route path={'providers/new'} element={<AdminProviderNewScreen />} />
+            <Route
+              path={'management'}
+              element={
+                <ProtectedRoute restriction="adminOnly">
+                  <AdminAccountsManagement />
+                </ProtectedRoute>
+              }
+            />
           </Route>
 
           {/* User */}
           <Route
             path={'user/*'}
             element={
-              <ProtectedRoute role={CurrentUserRoles.ROLE_REGULAR}>
+              <ProtectedRoute>
                 <UserLayout />
               </ProtectedRoute>
             }
