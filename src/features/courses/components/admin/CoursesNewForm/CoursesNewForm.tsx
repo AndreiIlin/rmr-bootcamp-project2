@@ -25,9 +25,9 @@ import {
   TextField,
 } from '@mui/material';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { REQUIRED_DEFAULT_RULE, URL_PATTERN_RULE } from '@utils/formValidationUtils';
 import { useCallback, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { REQUIRED_DEFAULT_RULE, URL_PATTERN_RULE } from '@utils/formValidationUtils';
 
 export const CoursesNewForm = () => {
   const [providerSearch, setProviderSearch] = useState('');
@@ -38,7 +38,8 @@ export const CoursesNewForm = () => {
   const { courseProviders } = useAllProviders();
   const { data: professions } = useAllProfessions();
 
-  const { control, handleSubmit, reset, setValue } = useForm<CourseCreateArgs>();
+  const { control, handleSubmit, reset, setValue, getValues } =
+    useForm<CourseCreateArgs>();
 
   const [snackbarVisible, setSnackbarVisible] = useState(false);
 
@@ -205,7 +206,9 @@ export const CoursesNewForm = () => {
                   }}
                   render={({ field: { value, ...otherFields }, fieldState }) => (
                     <FormControl fullWidth>
-                      <InputLabel id="profession-select-label">Профессия</InputLabel>
+                      <InputLabel id="profession-select-label" error={!!fieldState.error}>
+                        Профессия
+                      </InputLabel>
                       <Select
                         labelId="profession-select-label"
                         id="profession-select"
@@ -271,6 +274,9 @@ export const CoursesNewForm = () => {
                   defaultValue={''}
                   rules={{
                     required: REQUIRED_DEFAULT_RULE,
+                    validate: (value) =>
+                      new Date(value) >= new Date() ||
+                      'Дата начала курса не может быть меньше текущей даты',
                   }}
                   render={({ field, fieldState }) => (
                     <TextField
@@ -299,6 +305,9 @@ export const CoursesNewForm = () => {
                   defaultValue={''}
                   rules={{
                     required: REQUIRED_DEFAULT_RULE,
+                    validate: (value) =>
+                      value >= getValues('startsAt') ||
+                      'Дата окончания курса не может быть раньше даты начала курса',
                   }}
                   render={({ field, fieldState }) => (
                     <TextField
