@@ -242,7 +242,7 @@ export const Registration = () => {
             {warningMessage}
           </FormHelperText>
         )}
-        <Button variant={'contained'} size={'large'} type={'submit'}>
+        <Button variant={'contained'} size={'large'} type={'submit'} sx={{ mt: 2 }}>
           Зарегистрироваться
         </Button>
         <Button size={'small'} onClick={() => goToLogin()}>
