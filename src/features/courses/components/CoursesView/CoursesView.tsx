@@ -53,7 +53,7 @@ export const CoursesView = ({
           </Alert>
         </Box>
       )}
-      {data && data.pages && data.pages.length > 0 && (
+      {data && !!data.pages[0].totalElements && (
         <>
           <Box sx={{ mt: 4 }}>
             {data.pages?.map((page, idx) => (
@@ -80,7 +80,7 @@ export const CoursesView = ({
       {data?.pages && data?.pages[0].content.length === 0 && (
         <Box sx={{ mt: 3 }}>
           <Alert severity="info">
-            К сожалению, курсы по заданым фильтрам не найдены.{' '}
+            К сожалению, курсы по заданным фильтрам не найдены.{' '}
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid*/}
             <Link
               variant="body2"

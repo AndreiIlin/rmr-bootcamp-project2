@@ -43,7 +43,11 @@ export const CoursesListCard = ({
         <Box sx={{ mb: 1 }} typography={'body2'}>
           {formattedDateStart} – {formattedDateEnd}
         </Box>
-        <Typography variant="h5" component="h3">
+        <Typography
+          variant="h5"
+          component="h3"
+          sx={{ overflow: 'hidden', textOverflow: 'ellipsis' }}
+        >
           {title}
         </Typography>
       </CardContent>

@@ -140,12 +140,7 @@ export const Login = () => {
             {warningMessage}
           </FormHelperText>
         )}
-        <Button
-          variant={'contained'}
-          size={'large'}
-          sx={{ width: '20%' }}
-          type={'submit'}
-        >
+        <Button sx={{ mt: 2 }} variant={'contained'} size={'large'} type={'submit'}>
           Войти
         </Button>
         <Button onClick={() => goToRegistration()}>{'Зарегистрироваться'}</Button>
