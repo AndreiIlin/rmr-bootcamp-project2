@@ -2,6 +2,7 @@ import { CoursesSortBy } from '@features/courses/courses.service';
 import { ProfessionEntity } from '@features/professions/professions.entity';
 import { useAllProfessions } from '@features/professions/professions.hooks';
 import {
+  Button,
   Card,
   CardContent,
   CardHeader,
@@ -14,7 +15,7 @@ import {
   TextField,
 } from '@mui/material';
 import debounce from 'lodash.debounce';
-import { useEffect, useMemo, useRef } from 'react';
+import React, { MouseEvent, useEffect, useMemo, useRef } from 'react';
 
 export type FilterOptions = {
   professionId?: number;
@@ -27,12 +28,14 @@ interface CourseFilterProps {
   options: FilterOptions;
   disabledControls?: Array<keyof FilterOptions>;
   onChange: (filterOptions: FilterOptions) => void;
+  clearFilters: (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => void;
 }
 
 export const CoursesFilter = ({
   options,
   disabledControls,
   onChange,
+  clearFilters,
 }: CourseFilterProps) => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const { data } = useAllProfessions();
@@ -72,7 +75,7 @@ export const CoursesFilter = ({
     });
   };
 
-  const handleIsForAdvancedChange = (event: SelectChangeEvent<string>) => {
+  const handleIsForAdvancedChange = (event: SelectChangeEvent) => {
     let result = undefined;
     if (event.target.value === 'yes') {
       result = true;
@@ -83,7 +86,7 @@ export const CoursesFilter = ({
     onChange({ ...options, isAdvanced: result });
   };
 
-  const handleSortbyChange = (event: SelectChangeEvent) => {
+  const handleSortByChange = (event: SelectChangeEvent) => {
     onChange({ ...options, sortBy: event.target.value as CoursesSortBy });
   };
 
@@ -95,7 +98,11 @@ export const CoursesFilter = ({
 
   return (
     <Card>
-      <CardHeader title="Фильтры" sx={{ p: { md: 3 }, pb: { md: 1 } }} />
+      <CardHeader
+        title="Фильтры"
+        sx={{ p: { md: 3 }, pb: { md: 1 } }}
+        action={<Button onClick={clearFilters}>Очистить фильтры</Button>}
+      />
       <CardContent sx={{ p: { md: 3 } }}>
         <Grid container spacing={2}>
           <Grid item xs={12} sm={6} lg={gridColumnSize}>
@@ -155,13 +162,13 @@ export const CoursesFilter = ({
 
           <Grid item xs={12} sm={6} lg={gridColumnSize}>
             <FormControl fullWidth>
-              <InputLabel id="course-sortby">Сортировать по:</InputLabel>
+              <InputLabel id="course-sortBy">Сортировать по:</InputLabel>
               <Select
-                labelId="course-sortby"
-                id="course-sortby"
+                labelId="course-sortBy"
+                id="course-sortBy"
                 label="Сортировать по:"
                 value={options.sortBy}
-                onChange={handleSortbyChange}
+                onChange={handleSortByChange}
                 defaultValue="startsAt"
               >
                 <MenuItem value={'startsAt'}>Дате начала</MenuItem>
