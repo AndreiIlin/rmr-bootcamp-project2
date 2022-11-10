@@ -8,6 +8,7 @@ import {
   CardContent,
   CardMedia,
   Typography,
+  Rating,
 } from '@mui/material';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
@@ -21,9 +22,11 @@ export const CoursesListCard = ({
   providerName,
   startsAt,
   endsAt,
+  averageRating,
 }: CoursesListCardProps) => {
   const formattedDateStart = dayjs(startsAt).format('DD.MM.YYYY');
   const formattedDateEnd = dayjs(endsAt).format('DD.MM.YYYY');
+
   return (
     <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
       <CardActionArea component={Link} to={`/courses/${id}`}>
@@ -51,7 +54,13 @@ export const CoursesListCard = ({
           {title}
         </Typography>
       </CardContent>
-      <CardActions sx={{ p: { md: 2 }, mt: 'auto' }}>
+      <CardActions sx={{ p: { md: 2 }, mt: 'auto', flexDirection: 'column' }}>
+        <Box sx={{ display: 'flex', alignItems: 'end', mb: 1, justifyContent: 'center' }}>
+          <Typography variant={'caption'} sx={{ mr: 1, color: '#bbb' }}>
+            {averageRating.toFixed(1)}
+          </Typography>
+          <Rating name="card-raiting" value={averageRating} precision={0.1} readOnly />
+        </Box>
         <Button variant="outlined" component={Link} to={`/courses/${id}`} fullWidth>
           Открыть курс
         </Button>
