@@ -53,6 +53,7 @@ export const CourseDetailsArticle = ({ courseId }: CourseDetailsArticleProps) =>
                 profession={course.professionName}
                 dateStart={course.startsAt}
                 dateEnd={course.endsAt}
+                averageRating={course.averageRating}
               />
             </Box>
             <CourseDetailsContent
