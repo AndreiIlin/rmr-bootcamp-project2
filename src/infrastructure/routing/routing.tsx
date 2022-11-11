@@ -30,6 +30,7 @@ import { SurveyFinishScreen } from '@screens/SurveyFinishScreen';
 import { SurveyScreen } from '@screens/SurveyScreen';
 import { SurveyStepScreen } from '@screens/SurveyStepScreen';
 import { UserAccountScreen } from '@screens/UserAccountScreen';
+import { UserCoursesScreen } from '@screens/UserCoursesScreen';
 import { UserRecommendationsScreen } from '@screens/UserRecommendationsScreen';
 import { Route, Routes } from 'react-router-dom';
 
@@ -115,6 +116,7 @@ export const Routing = () => {
           >
             <Route path={'recommendations'} element={<UserRecommendationsScreen />} />
             <Route path={'account'} element={<UserAccountScreen />} />
+            <Route path={'courses'} element={<UserCoursesScreen />} />
           </Route>
 
           {/* Auth */}

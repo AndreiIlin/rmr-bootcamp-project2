@@ -1,4 +1,4 @@
-import { RecommendRounded, Settings } from '@mui/icons-material';
+import { AutoStories, RecommendRounded, Settings } from '@mui/icons-material';
 import { Grid } from '@mui/material';
 import { Outlet } from 'react-router-dom';
 import { UserSidebar } from './UserSidebar';
@@ -14,6 +14,11 @@ export const UserLayout = () => {
       path: '/user/account',
       title: 'Мой аккаунт',
       renderIcon: () => <Settings />,
+    },
+    {
+      path: '/user/courses',
+      title: 'Мои курсы',
+      renderIcon: () => <AutoStories />,
     },
   ];
 
