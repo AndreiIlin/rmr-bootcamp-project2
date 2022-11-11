@@ -1,7 +1,7 @@
-import { useParams } from 'react-router-dom';
 import { ConfirmEmail } from '@features/auth/components';
-import { Helmet } from 'react-helmet';
 import { APP_TITLE_WITH_SEPARATOR } from '@utils/constants';
+import { Helmet } from 'react-helmet';
+import { useParams } from 'react-router-dom';
 
 export const ConfirmPage = () => {
   const { token } = useParams();
