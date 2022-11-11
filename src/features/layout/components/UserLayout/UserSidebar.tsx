@@ -1,3 +1,5 @@
+import { CurrentUserRoles, useCurrentUser } from '@features/auth';
+import { AutoStories } from '@mui/icons-material';
 import {
   List,
   ListItem,
@@ -19,6 +21,9 @@ interface UserSidebarProps {
 
 export const UserSidebar = ({ navItems }: UserSidebarProps) => {
   const location = useLocation();
+  const { data: currentUser } = useCurrentUser();
+  const isUser = currentUser?.role === CurrentUserRoles.ROLE_REGULAR;
+
   return (
     <aside>
       <List sx={{ display: { xs: 'flex', md: 'block' }, flexWrap: 'wrap' }}>
@@ -40,6 +45,20 @@ export const UserSidebar = ({ navItems }: UserSidebarProps) => {
             </ListItemButton>
           </ListItem>
         ))}
+        {isUser && (
+          <ListItem sx={{ width: { xs: '100%', sm: '50%', md: '100%' }, px: 1 }}>
+            <ListItemButton
+              component={Link}
+              to={'/user/courses'}
+              selected={location.pathname.includes('/user/courses')}
+            >
+              <ListItemIcon color="primary" sx={{ minWidth: '38px' }}>
+                <AutoStories />
+              </ListItemIcon>
+              <ListItemText primary={'Мои курсы'} />
+            </ListItemButton>
+          </ListItem>
+        )}
       </List>
     </aside>
   );
