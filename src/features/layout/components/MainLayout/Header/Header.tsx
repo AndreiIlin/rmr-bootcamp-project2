@@ -1,3 +1,5 @@
+import { CurrentUserRoles, useAuthStore, useCurrentUser } from '@features/auth';
+import { logOut } from '@features/auth/components';
 import { useSurveyResultsStore } from '@features/survey/hooks';
 import { AccountCircle, Menu as MenuIcon } from '@mui/icons-material';
 import {
@@ -15,12 +17,10 @@ import {
   Toolbar,
 } from '@mui/material';
 import { styled } from '@mui/system';
+import { useQueryClient } from '@tanstack/react-query';
 import { Logo } from '@ui-library/components/Logo';
 import { useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { CurrentUserRoles, useAuthStore, useCurrentUser } from '@features/auth';
-import { logOut } from '@features/auth/components';
-import { useQueryClient } from '@tanstack/react-query';
 
 type NavLink = {
   title: string;
@@ -188,6 +188,13 @@ export const Header = () => {
                       Мои рекомендации
                     </MenuItem>
                   )}
+                  <MenuItem
+                    onClick={handleUserMenuClose}
+                    component={Link}
+                    to="/user/courses"
+                  >
+                    Мои курсы
+                  </MenuItem>
                   {(currentUser?.data?.role === CurrentUserRoles.ROLE_MODERATOR ||
                     currentUser?.data?.role === CurrentUserRoles.ROLE_ADMIN) && (
                     <MenuItem

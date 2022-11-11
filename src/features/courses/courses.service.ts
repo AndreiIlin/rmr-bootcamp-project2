@@ -1,7 +1,7 @@
 import { requestService } from '@infrastructure/request';
 import { PaginatedResult } from '@infrastructure/types';
 import { AxiosResponse } from 'axios';
-import { CourseFull } from './cources.entity';
+import { CourseFull, CourseStudyInfo } from './cources.entity';
 
 export type CoursesSortBy = 'startsAt' | 'endsAt';
 
@@ -71,3 +71,14 @@ export type CourseCreateResponse = {
 export const createCourse = (args: CourseCreateArgs): Promise<CourseCreateResponse> => {
   return requestService.post(`v1/courses`, args);
 };
+
+export type signUpForCourseArgs = {
+  courseId: number;
+  startsAt: string;
+};
+
+export const signUpForCourse = ({ courseId, startsAt }: signUpForCourseArgs) =>
+  requestService.post<CourseStudyInfo, AxiosResponse<CourseStudyInfo>>(
+    `v1/courses/${courseId}/start-study`,
+    { startsAt },
+  );

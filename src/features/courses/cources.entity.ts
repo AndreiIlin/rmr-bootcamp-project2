@@ -35,3 +35,16 @@ export type CourseFull = {
   votes: number;
   tags: string[];
 };
+
+export type CourseStudyInfo = {
+  id: number;
+  startsAt: string;
+  endsAt: string;
+  courseStudyInfoDto: {
+    courseId: number;
+    courseName: string;
+    courseProviderName: string;
+    score: number;
+    professionNameSet: string[];
+  };
+};
