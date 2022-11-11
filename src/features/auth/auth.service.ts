@@ -1,6 +1,6 @@
-import { AxiosResponse } from 'axios';
-import { requestService } from '@infrastructure/request';
 import { AuthResponse, CurrentUser, RegistrationUser } from '@features/auth/auth.entity';
+import { requestService } from '@infrastructure/request';
+import { AxiosResponse } from 'axios';
 
 export const login = async (
   email: string,
