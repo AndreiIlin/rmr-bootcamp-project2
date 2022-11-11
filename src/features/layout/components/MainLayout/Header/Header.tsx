@@ -19,7 +19,7 @@ import {
 import { styled } from '@mui/system';
 import { useQueryClient } from '@tanstack/react-query';
 import { Logo } from '@ui-library/components/Logo';
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 type NavLink = {
@@ -98,6 +98,8 @@ export const Header = () => {
     setUserMenuAnchorEl(event.currentTarget);
     setUserMenuOpen(true);
   };
+
+  const isUser = currentUser.data?.role === CurrentUserRoles.ROLE_REGULAR;
 
   return (
     <AppBar
@@ -188,13 +190,15 @@ export const Header = () => {
                       Мои рекомендации
                     </MenuItem>
                   )}
-                  <MenuItem
-                    onClick={handleUserMenuClose}
-                    component={Link}
-                    to="/user/courses"
-                  >
-                    Мои курсы
-                  </MenuItem>
+                  {isUser && (
+                    <MenuItem
+                      onClick={handleUserMenuClose}
+                      component={Link}
+                      to="/user/courses"
+                    >
+                      Мои курсы
+                    </MenuItem>
+                  )}
                   {(currentUser?.data?.role === CurrentUserRoles.ROLE_MODERATOR ||
                     currentUser?.data?.role === CurrentUserRoles.ROLE_ADMIN) && (
                     <MenuItem
