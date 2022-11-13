@@ -1,1 +1,1 @@
-export * from './ConfirmPage';
+export { ConfirmPage } from './ConfirmPage';

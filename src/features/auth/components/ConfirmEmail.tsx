@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
-import { confirmEmail } from '@features/auth/auth.service';
 import { useAuthStore } from '@features/auth';
-import { useNavigate } from 'react-router-dom';
+import { confirmEmail } from '@features/auth/auth.service';
 import { CircularProgress, Grid, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface ConfirmEmailProps {
   token: string;
