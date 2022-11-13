@@ -1,3 +1,4 @@
+import { CourseStudyInfo } from '@features/courses';
 import { requestService } from '@infrastructure/request';
 import { AxiosResponse } from 'axios';
 import { UserInfoFull, UserProfileFull } from './users.entity';
@@ -21,3 +22,14 @@ export const changeCurrentUserProfile = async (
 ): Promise<AxiosResponse<GetCurrentUserProfileResponse>> => {
   return requestService.post(`v1/profiles/my`, userProfile);
 };
+
+export const fetchUserProfileByEmail = async (email: string) =>
+  requestService.get<UserProfileFull>('v1/users/find', { params: { email } });
+
+export const changeUserRole = async (id: number, isModerator: boolean) =>
+  requestService.put<UserProfileFull>(`v1/users/${id}`, {}, { params: { isModerator } });
+
+export const getStudyInfo = () =>
+  requestService.get<CourseStudyInfo[], AxiosResponse<CourseStudyInfo[]>>(
+    'v1/profiles/my/study',
+  );

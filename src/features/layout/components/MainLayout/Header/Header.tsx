@@ -1,3 +1,5 @@
+import { CurrentUserRoles, useAuthStore, useCurrentUser } from '@features/auth';
+import { logOut } from '@features/auth/components';
 import { useSurveyResultsStore } from '@features/survey/hooks';
 import { AccountCircle, Menu as MenuIcon } from '@mui/icons-material';
 import {
@@ -15,12 +17,10 @@ import {
   Toolbar,
 } from '@mui/material';
 import { styled } from '@mui/system';
-import { Logo } from '@ui-library/components/Logo';
-import { useMemo, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { CurrentUserRoles, useAuthStore, useCurrentUser } from '@features/auth';
-import { logOut } from '@features/auth/components';
 import { useQueryClient } from '@tanstack/react-query';
+import { Logo } from '@ui-library/components/Logo';
+import React, { useMemo, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 
 type NavLink = {
   title: string;
@@ -31,6 +31,7 @@ type NavLink = {
 const navLinks: NavLink[] = [
   { title: 'Профессии', path: '/professions', variant: 'text' },
   { title: 'Курсы', path: '/courses', variant: 'text' },
+  { title: 'О нас', path: '/about-us', variant: 'text' },
   { title: 'Пройти тест', path: '/survey', variant: 'contained' },
 ];
 
@@ -97,6 +98,8 @@ export const Header = () => {
     setUserMenuAnchorEl(event.currentTarget);
     setUserMenuOpen(true);
   };
+
+  const isUser = currentUser.data?.role === CurrentUserRoles.ROLE_REGULAR;
 
   return (
     <AppBar
@@ -185,6 +188,15 @@ export const Header = () => {
                       to="/user/recommendations"
                     >
                       Мои рекомендации
+                    </MenuItem>
+                  )}
+                  {isUser && (
+                    <MenuItem
+                      onClick={handleUserMenuClose}
+                      component={Link}
+                      to="/user/courses"
+                    >
+                      Мои курсы
                     </MenuItem>
                   )}
                   {(currentUser?.data?.role === CurrentUserRoles.ROLE_MODERATOR ||

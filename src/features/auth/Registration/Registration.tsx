@@ -1,7 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import { registration } from '@features/auth/auth.service';
-import { useAuthStore } from '@features/auth/auth.hooks';
 import {
+  Alert,
   Button,
   Container,
   FormHelperText,
@@ -10,6 +10,7 @@ import {
   InputAdornment,
   InputLabel,
   Paper,
+  Snackbar,
   Typography,
 } from '@mui/material';
 import { FieldValues, useForm } from 'react-hook-form';
@@ -20,8 +21,6 @@ import * as yup from 'yup';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 export const Registration = () => {
-  const setAuth = useAuthStore((state) => state.setAuth);
-
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -99,12 +98,8 @@ export const Registration = () => {
         surname: user.surname,
       })
         .then((response) => {
-          localStorage.setItem('accessToken', response.data.accessToken);
-          localStorage.setItem('refreshToken', response.data?.refreshToken);
-          setWarningMessage('');
-          setAuth(true);
-          if (location.state?.from) navigate(location.state.from);
-          else navigate('/');
+          setEmail(response.data.email);
+          setSnackbarVisible(true);
         })
         .catch((error) => {
           if (error.response?.data.code === 'ITD_UEC_2')
@@ -247,13 +242,29 @@ export const Registration = () => {
             {warningMessage}
           </FormHelperText>
         )}
-        <Button variant={'contained'} size={'large'} type={'submit'}>
+        <Button variant={'contained'} size={'large'} type={'submit'} sx={{ mt: 2 }}>
           Зарегистрироваться
         </Button>
         <Button size={'small'} onClick={() => goToLogin()}>
           {'Уже зарегистрированы?'}
         </Button>
       </Paper>
+      <Snackbar
+        open={snackbarVisible}
+        autoHideDuration={10000}
+        onClick={() => setSnackbarVisible(false)}
+        onClose={() => setSnackbarVisible(false)}
+        sx={{ height: '40%' }}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert
+          severity="success"
+          sx={{ width: '200%', border: 1, borderColor: 'primary.main' }}
+        >
+          {`Вы успешно зарегистрировались. Мы отправили вам письмо на ${email} для
+          подтверждения аккаунта.`}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };

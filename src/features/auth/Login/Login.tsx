@@ -44,18 +44,18 @@ export const Login = () => {
       await login(email, password)
         .then((response) => {
           localStorage.setItem('accessToken', response.data.accessToken);
-          if (response.data.refreshToken)
-            localStorage.setItem('refreshToken', response.data.refreshToken);
+          localStorage.setItem('refreshToken', response.data.refreshToken);
           setWarningMessage('');
           setAuth(true);
-          if (location.state?.from) navigate(location.state.from);
-          else navigate('/');
+          location.state?.from ? navigate(location.state.from) : navigate('/');
         })
         .catch((error) => {
           if (error.response.data.code === 'ITD_AEC_1')
             setWarningMessage('Логин и пароль не совпадают!');
           else if (error.response.data.code === 'ITD_UEC_1')
             setWarningMessage('Такого пользователя не существует!');
+          else if (error.response.data.code === 'ITD_AEC_3')
+            setWarningMessage('Вы не подтвердили почту. Зайдите в свой почтовый ящик!');
         });
     } catch (e) {
       console.log(e);
@@ -140,12 +140,7 @@ export const Login = () => {
             {warningMessage}
           </FormHelperText>
         )}
-        <Button
-          variant={'contained'}
-          size={'large'}
-          sx={{ width: '20%' }}
-          type={'submit'}
-        >
+        <Button sx={{ mt: 2 }} variant={'contained'} size={'large'} type={'submit'}>
           Войти
         </Button>
         <Button onClick={() => goToRegistration()}>{'Зарегистрироваться'}</Button>

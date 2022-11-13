@@ -5,38 +5,33 @@ import { Navigate, useLocation } from 'react-router-dom';
 import { Box, CircularProgress } from '@mui/material';
 
 interface ProtectedRouteProps {
-  role: CurrentUserRoles;
+  restriction?: string;
   children?: React.ReactNode;
 }
 
 export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
-  role = CurrentUserRoles.ROLE_REGULAR,
+  restriction,
   children,
 }) => {
   const currentUser = useCurrentUser();
   const { isAuth } = useAuthStore();
 
-  const isAvailable = useMemo(() => {
-    if (currentUser?.data?.role === CurrentUserRoles.ROLE_ADMIN) return true;
-    else if (currentUser?.data?.role === CurrentUserRoles.ROLE_MODERATOR)
-      return role !== CurrentUserRoles.ROLE_ADMIN;
-    else return role === CurrentUserRoles.ROLE_REGULAR;
-  }, [currentUser]);
+  const isAdmin = currentUser.data?.role === CurrentUserRoles.ROLE_ADMIN;
+  const isUser = currentUser.data?.role === CurrentUserRoles.ROLE_REGULAR;
 
   const location = useLocation();
 
-  if (currentUser?.isInitialLoading) {
-    console.log(currentUser?.isLoading);
-    return (
-      <Box sx={{ position: 'absolute', left: '50%', top: '40%' }}>
-        <CircularProgress size="8rem" />
-      </Box>
-    );
-  } else if (!isAuth) {
-    return <Navigate to={'/login'} replace state={{ from: location }} />;
-  } else if (isAvailable) {
-    return <>{children}</>;
-  } else {
-    return <Navigate to={'/404'} replace />;
-  }
+  return (
+    <>
+      {currentUser.isInitialLoading && (
+        <Box sx={{ position: 'absolute', left: '50%', top: '40%' }}>
+          <CircularProgress size="8rem" />
+        </Box>
+      )}
+      {!isAuth && <Navigate to={'/login'} replace state={{ from: location }} />}
+      {restriction === 'adminOnly' && !isAdmin && <Navigate to={'/404'} replace />}
+      {restriction === 'notForUsers' && isUser && <Navigate to={'/404'} replace />}
+      {children}
+    </>
+  );
 };

@@ -1,6 +1,6 @@
 import { useInfiniteCourses } from '@features/courses/hooks/useInfiniteCourses';
 import { Alert, AlertTitle, Box, Button, CircularProgress, Link } from '@mui/material';
-import { MouseEventHandler, useState } from 'react';
+import { MouseEvent, useState } from 'react';
 import { CoursesFilter, FilterOptions } from '../CoursesFilter';
 import { CoursesList } from '../CoursesList';
 
@@ -28,7 +28,7 @@ export const CoursesView = ({
     setOptions((prev) => ({ ...prev, ...filterOptions }));
   };
 
-  const clearFilters: MouseEventHandler<HTMLAnchorElement> = (e) => {
+  const clearFilters = (e: MouseEvent<HTMLAnchorElement | HTMLButtonElement>) => {
     e.preventDefault();
     setOptions({ ...filterOptions, sortBy: 'startsAt', search: '' });
   };
@@ -39,6 +39,7 @@ export const CoursesView = ({
         options={options}
         onChange={handleFilterChange}
         disabledControls={disabledFilterControls}
+        clearFilters={clearFilters}
       />
       {isLoading && !data && (
         <Box sx={{ mt: 3, display: 'flex', justifyContent: 'center' }}>
@@ -53,7 +54,7 @@ export const CoursesView = ({
           </Alert>
         </Box>
       )}
-      {data && data.pages && data.pages.length > 0 && (
+      {data && !!data.pages[0].totalElements && (
         <>
           <Box sx={{ mt: 4 }}>
             {data.pages?.map((page, idx) => (
@@ -80,7 +81,7 @@ export const CoursesView = ({
       {data?.pages && data?.pages[0].content.length === 0 && (
         <Box sx={{ mt: 3 }}>
           <Alert severity="info">
-            К сожалению, курсы по заданым фильтрам не найдены.{' '}
+            К сожалению, курсы по заданным фильтрам не найдены.{' '}
             {/* eslint-disable-next-line jsx-a11y/anchor-is-valid*/}
             <Link
               variant="body2"
