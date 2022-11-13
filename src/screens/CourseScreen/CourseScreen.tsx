@@ -1,14 +1,11 @@
-import { Comments } from '@features/comments';
+import { Comment } from '@features/comments';
+import { CommentBoard } from '@features/comments/components/CommentBoard';
 import { CourseDetailsArticle } from '@features/courses/components/CourseDetailsArticle';
 import { CourseDetailsAside } from '@features/courses/components/CourseDetailsAside';
 import { Box, Grid } from '@mui/material';
 import { useParams } from 'react-router-dom';
 
-interface CourseScreenProps {
-  courseId: string;
-}
-
-export const CourseScreen = ({ courseId }: CourseScreenProps) => {
+export const CourseScreen = () => {
   const { id } = useParams();
 
   return (
@@ -23,7 +20,10 @@ export const CourseScreen = ({ courseId }: CourseScreenProps) => {
           </Box>
         </Grid>
         <Grid item xs={12} md={8}>
-          <Comments />
+          <Comment courseId={id as string} />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <CommentBoard courseId={id as string} />
         </Grid>
       </Grid>
     </section>

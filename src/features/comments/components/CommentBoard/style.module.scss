@@ -1,0 +1,14 @@
+.commentBox {
+  margin-bottom: 16px;
+
+  .commentTitle {
+    margin-bottom: 0 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between;
+  }
+}
+
+.commentDate {
+  margin-bottom: 24px;
+}

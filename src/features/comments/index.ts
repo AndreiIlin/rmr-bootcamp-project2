@@ -1,1 +1,2 @@
-export * from './components/Comments/Comments';
+export * from './components/Comment/Comment';
+export * from './components/CommentBoard/CommentBoard';
