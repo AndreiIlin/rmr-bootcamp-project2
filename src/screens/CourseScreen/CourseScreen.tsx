@@ -1,3 +1,5 @@
+import { Comment } from '@features/comments';
+import { CommentBoard } from '@features/comments/components/CommentBoard';
 import { CourseDetailsArticle } from '@features/courses/components/CourseDetailsArticle';
 import { CourseDetailsAside } from '@features/courses/components/CourseDetailsAside';
 import { Box, Grid } from '@mui/material';
@@ -16,6 +18,12 @@ export const CourseScreen = () => {
           <Box sx={{ pt: 1 }}>
             <CourseDetailsAside courseId={id as string} />
           </Box>
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <Comment courseId={id as string} />
+        </Grid>
+        <Grid item xs={12} md={8}>
+          <CommentBoard courseId={id as string} />
         </Grid>
       </Grid>
     </section>

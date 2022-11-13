@@ -1,6 +1,5 @@
 import { Box, Grid, styled, Typography } from '@mui/material';
 import { TypographyContainer } from '@ui-library/components/TypographyContainer';
-import React from 'react';
 import { FC, PropsWithChildren } from 'react';
 
 export const AboutUsPage: FC<PropsWithChildren> = () => {
