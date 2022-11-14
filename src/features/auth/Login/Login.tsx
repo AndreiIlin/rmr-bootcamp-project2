@@ -1,3 +1,5 @@
+import { red } from '@mui/material/colors';
+import { ESIAButton } from '@ui-library/components/ESIAButton';
 import React, { useState } from 'react';
 import { login } from '@features/auth/auth.service';
 import { useAuthStore } from '@features/auth/auth.hooks';
@@ -13,7 +15,7 @@ import {
   Typography,
 } from '@mui/material';
 import { FieldValues, useForm } from 'react-hook-form';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, redirect } from 'react-router-dom';
 import { StyledBox } from '../components';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
@@ -37,6 +39,10 @@ export const Login = () => {
   };
   const goToRegistration = () => {
     navigate('/registration', { state: { from: location.state?.from } });
+  };
+
+  const navigateToESIA = () => {
+    window.location.href = 'https://www.gosuslugi.ru/';
   };
 
   const auth = async (email: string, password: string) => {
@@ -140,10 +146,18 @@ export const Login = () => {
             {warningMessage}
           </FormHelperText>
         )}
-        <Button sx={{ mt: 2 }} variant={'contained'} size={'large'} type={'submit'}>
+        <Button
+          sx={{ mt: 2, width: 320 }}
+          variant={'contained'}
+          size={'large'}
+          type={'submit'}
+        >
           Войти
         </Button>
-        <Button onClick={() => goToRegistration()}>{'Зарегистрироваться'}</Button>
+        <ESIAButton onClick={navigateToESIA} />
+        <Button sx={{ width: 320 }} onClick={goToRegistration}>
+          {'Зарегистрироваться'}
+        </Button>
       </Paper>
     </Container>
   );
