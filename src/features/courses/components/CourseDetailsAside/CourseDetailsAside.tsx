@@ -1,4 +1,4 @@
-import { useAuthStore } from '@features/auth';
+import { CurrentUserRoles, useAuthStore, useCurrentUser } from '@features/auth';
 import { signUpForCourse } from '@features/courses/courses.service';
 import { useCourse } from '@features/courses/hooks/useCourse';
 import { getStudyInfo } from '@features/users/users.service';
@@ -40,7 +40,9 @@ export const CourseDetailsAside = ({ courseId }: CourseDetailsAsideProps) => {
   const { course } = useCourse(courseId);
   const queryClient = useQueryClient();
 
-  const isAuth = useAuthStore((state) => state.isAuth);
+  const { data: currentUser } = useCurrentUser();
+
+  const isUser = currentUser?.role === CurrentUserRoles.ROLE_REGULAR;
 
   const [isSnackbarOpened, setIsSnackbarOpened] = useState(false);
 
@@ -58,7 +60,7 @@ export const CourseDetailsAside = ({ courseId }: CourseDetailsAsideProps) => {
 
   const { data: userCourses } = useQuery({
     queryKey: ['userStudy'],
-    enabled: isAuth,
+    enabled: isUser,
     queryFn: async () => {
       const { data } = await getStudyInfo();
       return data;
@@ -82,7 +84,7 @@ export const CourseDetailsAside = ({ courseId }: CourseDetailsAsideProps) => {
       <>
         {course && (
           <>
-            {isAuth && (
+            {isUser && (
               <Button
                 variant="contained"
                 size="large"
