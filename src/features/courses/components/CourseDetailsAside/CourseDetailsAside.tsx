@@ -1,3 +1,4 @@
+import { CurrentUserRoles, useAuthStore, useCurrentUser } from '@features/auth';
 import { signUpForCourse } from '@features/courses/courses.service';
 import { useCourse } from '@features/courses/hooks/useCourse';
 import { getStudyInfo } from '@features/users/users.service';
@@ -39,13 +40,17 @@ export const CourseDetailsAside = ({ courseId }: CourseDetailsAsideProps) => {
   const { course } = useCourse(courseId);
   const queryClient = useQueryClient();
 
+  const { data: currentUser } = useCurrentUser();
+
+  const isUser = currentUser?.role === CurrentUserRoles.ROLE_REGULAR;
+
   const [isSnackbarOpened, setIsSnackbarOpened] = useState(false);
 
   const handleCloseSnackbar = () => {
     setIsSnackbarOpened(false);
   };
 
-  const { mutate, isLoading, isSuccess } = useMutation({
+  const { mutate, isLoading } = useMutation({
     mutationFn: signUpForCourse,
     onSuccess: async () => {
       await queryClient.invalidateQueries({ queryKey: ['userStudy'] });
@@ -55,6 +60,7 @@ export const CourseDetailsAside = ({ courseId }: CourseDetailsAsideProps) => {
 
   const { data: userCourses } = useQuery({
     queryKey: ['userStudy'],
+    enabled: isUser,
     queryFn: async () => {
       const { data } = await getStudyInfo();
       return data;
@@ -78,15 +84,17 @@ export const CourseDetailsAside = ({ courseId }: CourseDetailsAsideProps) => {
       <>
         {course && (
           <>
-            <Button
-              variant="contained"
-              size="large"
-              sx={{ mb: 3 }}
-              disabled={isLoading || isUserSignedUp}
-              onClick={handleCourseSignUp}
-            >
-              {isUserSignedUp ? 'Вы записаны на курс' : 'Записаться на курс'}
-            </Button>
+            {isUser && (
+              <Button
+                variant="contained"
+                size="large"
+                sx={{ mb: 3 }}
+                disabled={isLoading || isUserSignedUp}
+                onClick={handleCourseSignUp}
+              >
+                {isUserSignedUp ? 'Вы записаны на курс' : 'Записаться на курс'}
+              </Button>
+            )}
             <Stack spacing={8} direction="column">
               <Box>
                 <Typography component={'h5'} variant="h6" marginBottom={2}>
