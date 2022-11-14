@@ -196,7 +196,7 @@ export const Header = () => {
                       component={Link}
                       to="/user/courses"
                     >
-                      Мои курсы
+                      Моё обучение
                     </MenuItem>
                   )}
                   {(currentUser?.data?.role === CurrentUserRoles.ROLE_MODERATOR ||

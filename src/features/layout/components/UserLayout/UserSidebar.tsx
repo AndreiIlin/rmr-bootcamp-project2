@@ -55,7 +55,7 @@ export const UserSidebar = ({ navItems }: UserSidebarProps) => {
               <ListItemIcon color="primary" sx={{ minWidth: '38px' }}>
                 <AutoStories />
               </ListItemIcon>
-              <ListItemText primary={'Мои курсы'} />
+              <ListItemText primary={'Моё обучение'} />
             </ListItemButton>
           </ListItem>
         )}

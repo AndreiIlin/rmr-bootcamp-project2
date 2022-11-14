@@ -21,7 +21,7 @@ export const UserCourses: FC = () => {
   return (
     <>
       <Typography variant="h3" component={'h1'} marginBottom={3}>
-        Мои курсы
+        Моё обучение
       </Typography>
       {isLoading && <CircularProgress />}
       {isError && (

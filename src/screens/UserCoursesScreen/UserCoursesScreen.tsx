@@ -7,7 +7,7 @@ export const UserCoursesScreen: FC = () => {
   return (
     <>
       <Helmet>
-        <title>Мои курсы {APP_TITLE_WITH_SEPARATOR}</title>
+        <title>Моё обучение {APP_TITLE_WITH_SEPARATOR}</title>
       </Helmet>
       <UserCourses />
     </>
