@@ -1,4 +1,4 @@
-import { CurrentUserRoles, useAuthStore, useCurrentUser } from '@features/auth';
+import { CurrentUserRoles, useCurrentUser } from '@features/auth';
 import { signUpForCourse } from '@features/courses/courses.service';
 import { useCourse } from '@features/courses/hooks/useCourse';
 import { getStudyInfo } from '@features/users/users.service';
