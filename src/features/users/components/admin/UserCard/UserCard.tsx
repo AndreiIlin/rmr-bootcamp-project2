@@ -58,12 +58,6 @@ export const UserCard: FC<UserCardProps> = ({ user, refetch }) => {
             <b>Статус аккаунта:</b> {user.isConfirmed ? 'Подтверждён' : 'Не подтверждён'}
           </Typography>
           <Typography>
-            <b>Имя пользователя:</b> {user.name}
-          </Typography>
-          <Typography>
-            <b>Фамилия пользователя:</b> {user.surname}
-          </Typography>
-          <Typography>
             <b>Статус пользователя:</b> {roles[user.role]}
           </Typography>
           <Typography>
