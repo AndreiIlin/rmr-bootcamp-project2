@@ -1,4 +1,3 @@
-import { ReactJSXElement } from '@emotion/react/types/jsx-namespace';
 import { IReviews } from '@features/comments/auth.entity';
 import { useReviews } from '@features/comments/hooks/useReviews';
 import {
@@ -13,13 +12,14 @@ import {
 } from '@mui/material';
 import styles from './style.module.scss';
 import dayjs from 'dayjs';
+import { useAuthStore } from '@features/auth';
 
 interface CommentsProps {
   courseId: string;
 }
 
 export const CommentBoard = ({ courseId }: CommentsProps) => {
-  const { comments, isLoading, error } = useReviews(courseId);
+  const isLogged = useAuthStore((store) => store.isAuth);
 
   function buildComment(data: IReviews[]) {
     return data.map((item) => {
@@ -53,30 +53,42 @@ export const CommentBoard = ({ courseId }: CommentsProps) => {
     });
   }
 
-  return (
-    <article>
-      <>
-        {isLoading && (
-          <Box sx={{ mt: 2 }}>
-            <CircularProgress />
-          </Box>
-        )}
-        {error && (
-          <Box sx={{ mt: 3 }}>
-            <Alert severity="error">
-              Ой! Кажется произошла ошибка. Попробуйте перезагрузить страницу.
-            </Alert>
-          </Box>
-        )}
-        {comments && <Grid paddingRight={{ lg: '100px' }}>{buildComment(comments)}</Grid>}
-        {error && (
-          <Box sx={{ mt: 3 }}>
-            <Alert severity="error">
-              Ой! Кажется произошла ошибка. Попробуйте перезагрузить страницу.
-            </Alert>
-          </Box>
-        )}
-      </>
-    </article>
-  );
+  if (isLogged) {
+    const { comments, isLoading, error } = useReviews(courseId);
+
+    return (
+      <article>
+        <>
+          {isLoading && (
+            <Box sx={{ mt: 2 }}>
+              <CircularProgress />
+            </Box>
+          )}
+          {error && (
+            <Box sx={{ mt: 3 }}>
+              <Alert severity="error">
+                Ой! Кажется произошла ошибка. Попробуйте перезагрузить страницу.
+              </Alert>
+            </Box>
+          )}
+          {comments && (
+            <Grid paddingRight={{ lg: '100px' }}>{buildComment(comments)}</Grid>
+          )}
+          {error && (
+            <Box sx={{ mt: 3 }}>
+              <Alert severity="error">
+                Ой! Кажется произошла ошибка. Попробуйте перезагрузить страницу.
+              </Alert>
+            </Box>
+          )}
+        </>
+      </article>
+    );
+  } else {
+    return (
+      <Typography variant="h6">
+        Чтобы увидеть комментарии необходимо зарегистрироваться.
+      </Typography>
+    );
+  }
 };
