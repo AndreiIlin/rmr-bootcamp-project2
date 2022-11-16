@@ -1,3 +1,5 @@
+import { CourseFull } from '@features/courses';
+import { fetchCourses } from '@features/courses/courses.service';
 import { useInfiniteCourses } from '@features/courses/hooks/useInfiniteCourses';
 import { Alert, AlertTitle, Box, Button, CircularProgress, Link } from '@mui/material';
 import { MouseEvent, useState } from 'react';
@@ -22,7 +24,7 @@ export const CoursesView = ({
   });
 
   const { data, error, isLoading, isFetchingNextPage, fetchNextPage, hasNextPage } =
-    useInfiniteCourses(1, options);
+    useInfiniteCourses(1, options, fetchCourses);
 
   const handleFilterChange = (filterOptions: FilterOptions) => {
     setOptions((prev) => ({ ...prev, ...filterOptions }));
@@ -59,7 +61,10 @@ export const CoursesView = ({
           <Box sx={{ mt: 4 }}>
             {data.pages?.map((page, idx) => (
               <Box sx={{ mb: 4 }} key={idx}>
-                <CoursesList items={page.content} itemsPerRow={itemsPerRow} />
+                <CoursesList
+                  items={page.content as CourseFull[]}
+                  itemsPerRow={itemsPerRow}
+                />
               </Box>
             ))}
             {hasNextPage && (

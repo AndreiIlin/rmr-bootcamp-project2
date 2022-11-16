@@ -1,3 +1,4 @@
+import { fetchCourses } from '@features/courses/courses.service';
 import { UserRecommendedCourses } from '../UserRecommendedCourses';
 import { UserRecommendedProfessions } from '../UserRecommendedProfessions';
 import { useCurrentUserProfile } from '@features/users/hooks/useCurrentUserProfile';
@@ -22,6 +23,7 @@ export const UserRecommendations = () => {
     {
       professionId: profile?.professionId,
     },
+    fetchCourses,
     { enabled: !!profile?.professionId },
   );
 

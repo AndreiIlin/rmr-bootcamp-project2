@@ -17,7 +17,7 @@ import {
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-const StyledTableCell = styled(TableCell)(({ theme }) => ({
+export const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     paddingTop: theme.spacing(2),
     paddingBottom: theme.spacing(2),

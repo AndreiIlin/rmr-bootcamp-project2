@@ -19,3 +19,13 @@ export type UserProfileFull = {
   userId: number;
   professionId?: number;
 };
+
+export type UserStudyInfo = {
+  courseFinished: boolean;
+  courseTitle: string;
+  email: string;
+  finishedAt: string;
+  professions: string[];
+  score: number;
+  userInfoNameAndSurname: string;
+};
