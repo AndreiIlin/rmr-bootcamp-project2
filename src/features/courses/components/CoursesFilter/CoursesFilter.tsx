@@ -108,8 +108,8 @@ export const CoursesFilter = ({
           <Grid item xs={12} sm={6} lg={gridColumnSize}>
             <TextField
               variant="outlined"
-              label="Поиск по названию курса"
-              placeholder="Название курса"
+              label="Поиск"
+              placeholder="Введите поисковый запрос"
               onChange={debounce(handleSearchChange, 300)}
               defaultValue={options.search}
               inputRef={searchInputRef}
