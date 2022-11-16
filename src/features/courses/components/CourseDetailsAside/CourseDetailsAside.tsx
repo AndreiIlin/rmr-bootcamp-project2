@@ -1,5 +1,5 @@
 import { CurrentUserRoles, useCurrentUser } from '@features/auth';
-import { signUpForCourse } from '@features/courses/courses.service';
+import { signUpForCourse, writeCourseForStats } from '@features/courses/courses.service';
 import { useCourse } from '@features/courses/hooks/useCourse';
 import { getStudyInfo } from '@features/users/users.service';
 import {
@@ -67,6 +67,12 @@ export const CourseDetailsAside = ({ courseId }: CourseDetailsAsideProps) => {
     },
   });
 
+  const handleOpenCourse = async () => {
+    if (course) {
+      await writeCourseForStats(course.id);
+    }
+  };
+
   const handleCourseSignUp = () => {
     const currentTime = new Date().toISOString();
     mutate({
@@ -113,7 +119,14 @@ export const CourseDetailsAside = ({ courseId }: CourseDetailsAsideProps) => {
                 <Typography component={'h5'} variant="h6" sx={{ mb: 2 }}>
                   Ссылка на курс
                 </Typography>
-                <Button variant="outlined" size="large" component={'a'} href={course.url}>
+                <Button
+                  variant="outlined"
+                  size="large"
+                  component={'a'}
+                  target="_blank"
+                  href={course.url}
+                  onClick={handleOpenCourse}
+                >
                   Открыть курс
                 </Button>
               </Box>
