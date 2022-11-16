@@ -1,3 +1,4 @@
+import { UserStudyInfo } from '@features/users';
 import { requestService } from '@infrastructure/request';
 import { PaginatedResult } from '@infrastructure/types';
 import { AxiosResponse } from 'axios';
@@ -11,6 +12,11 @@ export type CoursesListArgs = {
   sortBy?: CoursesSortBy;
   directionId?: string;
   isAdvanced?: boolean;
+  courseTitle?: string;
+  score?: number | string;
+  profession?: string;
+  endsAt?: string;
+  isFinished?: boolean;
 };
 
 export type CoursesListResponse = PaginatedResult<CourseFull>;
@@ -82,3 +88,20 @@ export const signUpForCourse = ({ courseId, startsAt }: signUpForCourseArgs) =>
     `v1/courses/${courseId}/start-study`,
     { startsAt },
   );
+
+export type UserStudyInfoResponse = PaginatedResult<UserStudyInfo>;
+
+export const fetchUsersStudyInfo = (
+  args: CoursesListArgs,
+): Promise<AxiosResponse<UserStudyInfoResponse>> => {
+  return requestService.get(`v1/courses/study-information`, { params: args });
+};
+
+export const fetchUsersStudyInfoPDF = (
+  args: CoursesListArgs,
+): Promise<AxiosResponse<UserStudyInfoResponse>> => {
+  return requestService.get(`v1/courses/study-information/export/pdf`, {
+    params: args,
+    responseType: 'blob',
+  });
+};
