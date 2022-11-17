@@ -105,3 +105,7 @@ export const fetchUsersStudyInfoPDF = (
     responseType: 'blob',
   });
 };
+
+export const writeCourseForStats = (courseId: number): Promise<AxiosResponse<string>> => {
+  return requestService.post(`/v1/statistics/course/${courseId}`);
+};
