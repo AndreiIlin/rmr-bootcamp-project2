@@ -30,7 +30,6 @@ export const Comment = ({ courseId }: CommentsProps) => {
   const [success, setSuccess] = useState(false);
 
   function onSubmit(data: FormValues) {
-    console.log(data);
     if (data.rating) {
       postReviews(data.rating, data.text, courseId)
         .then((response) => {
