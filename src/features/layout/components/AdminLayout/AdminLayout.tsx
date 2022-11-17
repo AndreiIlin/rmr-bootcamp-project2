@@ -7,6 +7,7 @@ export const AdminLayout = () => {
     { path: '/admin/courses', title: 'Курсы' },
     { path: '/admin/professions', title: 'Профессии' },
     { path: '/admin/providers', title: 'Создатели курсов' },
+    { path: '/admin/study', title: 'Информация об обучении пользователей' },
     { path: '/admin/statistics', title: 'Статистика переходов' },
   ];
 

@@ -26,6 +26,8 @@ export const UserCoursesTable: FC<UserCoursesTableProps> = ({ userCourses }) => 
           <TableRow>
             <TableCell align="left">Название курса</TableCell>
             <TableCell align="right">Провайдер</TableCell>
+            <TableCell align="right">Профессии</TableCell>
+            <TableCell align="right">Количество баллов</TableCell>
             <TableCell align="right">Дата начала</TableCell>
             <TableCell align="right">Дата окончания</TableCell>
           </TableRow>
@@ -51,6 +53,18 @@ export const UserCoursesTable: FC<UserCoursesTableProps> = ({ userCourses }) => 
                 align="right"
               >
                 {course.courseStudyInfoDto.courseProviderName}
+              </TableCell>
+              <TableCell
+                sx={{ maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis' }}
+                align="right"
+              >
+                {course.courseStudyInfoDto.professionNameSet}
+              </TableCell>
+              <TableCell
+                sx={{ maxWidth: 200, overflow: 'hidden', textOverflow: 'ellipsis' }}
+                align="right"
+              >
+                {course.courseStudyInfoDto.score}
               </TableCell>
               <TableCell align="right">
                 {dayjs(course.startsAt).format('DD.MM.YYYY')}
