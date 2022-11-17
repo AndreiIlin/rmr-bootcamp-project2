@@ -14,6 +14,7 @@ import { AdminProfessionsScreen } from '@screens/admin/AdminProfessionsScreen';
 import { AdminProviderEditScreen } from '@screens/admin/AdminProviderEditScreen';
 import { AdminProviderNewScreen } from '@screens/admin/AdminProviderNewScreen';
 import { AdminProvidersScreen } from '@screens/admin/AdminProvidersScreen';
+import { AdminStatisticsScreen } from '@screens/admin/AdminStatisticsScreen';
 import { ConfirmPage } from '@screens/ConfirmPage';
 import { CourseScreen } from '@screens/CourseScreen';
 import { CoursesScreen } from '@screens/CoursesScreen';
@@ -92,6 +93,7 @@ export const Routing = () => {
             />
             <Route path={'professions/new'} element={<AdminProfessionsNewScreen />} />
 
+            <Route path={'statistics'} element={<AdminStatisticsScreen />} />
             <Route path={'providers'} element={<AdminProvidersScreen />} />
             <Route path={'providers/:id/edit'} element={<AdminProviderEditScreen />} />
             <Route path={'providers/new'} element={<AdminProviderNewScreen />} />
